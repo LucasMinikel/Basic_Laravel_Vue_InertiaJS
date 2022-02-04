@@ -3,7 +3,10 @@
     <div class="flex justify-between mb-6">
         <div class="flex items-center">
             <h1 class="text-3xl font-bold">Usuários</h1>
-            <Link href="/usuarios/create" class="text-blue-500 text-sm ml-4"
+            <Link
+                v-if="can.createUser"
+                href="/usuarios/create"
+                class="text-blue-500 text-sm ml-4"
                 >Novo usuario</Link
             >
         </div>
@@ -86,6 +89,7 @@
                                     "
                                 >
                                     <Link
+                                        v-if="user.can.edit"
                                         :href="`/users/${user.id}/edit`"
                                         class="
                                             text-indigo-600
@@ -113,6 +117,7 @@ import debounce from "lodash/debounce";
 let props = defineProps({
     users: Object,
     filters: Object,
+    can: Object,
 });
 let search = ref(props.filters.search);
 watch(

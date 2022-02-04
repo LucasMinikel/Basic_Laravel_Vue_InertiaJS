@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -27,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return Inertia::render('Home');
     });
+
     Route::get('/usuarios', function (Request $request) {
         return Inertia::render('Usuarios/Index', [
             'users' => User::query()
@@ -37,15 +39,23 @@ Route::middleware('auth')->group(function () {
                 ->withQueryString()
                 ->through(fn ($user) => [
                     'id' => $user->id,
-                    'name' => $user->name
+                    'name' => $user->name,
+                    'can' => [
+                        'edit' => Auth::user()->can('update', $user)
+                    ]
                 ]),
 
-            'filters' => $request->only(['search'])
+            'filters' => $request->only(['search']),
+            'can' => [
+                'createUser' => Auth::user()->can('create', User::class)
+            ]
         ]);
     });
+
     Route::get('/usuarios/create', function () {
         return Inertia::render('Usuarios/Create');
-    });
+    })->can('create', 'App\Model\User');
+
     Route::post('/usuarios', function (Request $request) {
         $attributes = $request->validate([
             'name' => 'required',
@@ -57,6 +67,7 @@ Route::middleware('auth')->group(function () {
 
         return redirect('/usuarios');
     });
+
     Route::get('/configuracao', function () {
         return Inertia::render('Configuracao');
     });
