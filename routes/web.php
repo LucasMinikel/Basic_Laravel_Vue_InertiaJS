@@ -26,3 +26,7 @@ Route::get('/usuarios', function () {
 Route::get('/configuracao', function () {
     return Inertia::render('Configuracao');
 });
+
+Route::post('/logout', function () {
+    dd(request('foo'));
+});
