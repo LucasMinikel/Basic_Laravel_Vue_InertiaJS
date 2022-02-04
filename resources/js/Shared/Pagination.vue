@@ -12,10 +12,8 @@
     </div>
 </template>
 
-<script>
-export default {
-    props: {
-        links: Array,
-    },
-};
+<script setup>
+defineProps({
+    links: Array,
+});
 </script>
