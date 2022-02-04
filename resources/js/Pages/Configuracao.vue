@@ -1,14 +1,13 @@
 <template>
-    <div>
-        <h1>Configuração</h1>
-        <Nav />
-    </div>
+    <Layout>
+        <h1 class="text-3xl">Configuração</h1>
+    </Layout>
 </template>
 <script>
-import Nav from "../Shared/Nav";
+import Layout from "../Shared/Layout";
 export default {
     components: {
-        Nav,
+        Layout,
     },
 };
 </script>
