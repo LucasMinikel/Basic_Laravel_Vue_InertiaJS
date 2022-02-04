@@ -20,8 +20,8 @@ Route::get('/', function () {
     return Inertia::render('Home');
 });
 
-Route::get('/usuarios', function (Request $request) {
-    return Inertia::render('Usuarios', [
+Route::get('/usuarios', function () {
+    return Inertia::render('Usuarios/Index', [
         'users' => User::paginate(10)
             ->through(fn ($user) => [
                 'id' => $user->id,
@@ -29,6 +29,38 @@ Route::get('/usuarios', function (Request $request) {
             ])
     ]);
 });
+
+Route::get('/usuarios/create', function () {
+    return Inertia::render('Usuarios/Create');
+});
+
+
+
+Route::post('/usuarios', function (Request $request) {
+    $attributes = $request->validate([
+        'name' => 'required',
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
+
+    User::create($attributes);
+
+    return redirect('/usuarios');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::get('/configuracao', function () {
     return Inertia::render('Configuracao');

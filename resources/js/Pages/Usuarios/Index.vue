@@ -1,7 +1,12 @@
 <template>
     <Head title="Usuarios" />
     <div class="flex justify-between mb-6">
-        <h1 class="text-3xl font-bold">Usuários</h1>
+        <div class="flex items-center">
+            <h1 class="text-3xl font-bold">Usuários</h1>
+            <Link href="/usuarios/create" class="text-blue-500 text-sm ml-4"
+                >Novo usuario</Link
+            >
+        </div>
     </div>
     <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -96,7 +101,7 @@
 
 <script setup>
 import { Inertia } from "@inertiajs/inertia";
-import Pagination from "../Shared/Pagination";
+import Pagination from "../../Shared/Pagination";
 let props = defineProps({
     users: Object,
 });
