@@ -6,6 +6,8 @@
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
     <link href="https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet">
     <script src="{{ mix('/js/app.js') }}" defer></script>
+    <script src="{{ mix('/js/manifest.js') }}" defer></script>
+    <script src="{{ mix('/js/vendor.js') }}" defer></script>
     @inertiaHead
   </head>
   <body>
