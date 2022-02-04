@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -19,12 +20,13 @@ Route::get('/', function () {
     return Inertia::render('Home');
 });
 
-Route::get('/usuarios', function () {
+Route::get('/usuarios', function (Request $request) {
     return Inertia::render('Usuarios', [
-        'users' => User::paginate(10)->through(fn ($user) => [
-            'id' => $user->id,
-            'name' => $user->name,
-        ])
+        'users' => User::paginate(10)
+            ->through(fn ($user) => [
+                'id' => $user->id,
+                'name' => $user->name
+            ])
     ]);
 });
 

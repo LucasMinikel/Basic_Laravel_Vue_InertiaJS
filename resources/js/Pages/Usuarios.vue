@@ -1,6 +1,8 @@
 <template>
     <Head title="Usuarios" />
-    <h1 class="text-3xl font-bold">Usuarios</h1>
+    <div class="flex justify-between mb-6">
+        <h1 class="text-3xl font-bold">Usuários</h1>
+    </div>
     <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div
@@ -36,7 +38,7 @@
                                         tracking-wider
                                     "
                                 >
-                                    Name
+                                    Nome
                                 </th>
                                 <th scope="col" class="relative px-6 py-3">
                                     <span class="sr-only">Ações</span>
@@ -63,7 +65,6 @@
                                         </div>
                                     </div>
                                 </td>
-
                                 <td
                                     class="
                                         px-6
@@ -79,7 +80,7 @@
                                             text-indigo-600
                                             hover:text-indigo-900
                                         "
-                                        >Edit</Link
+                                        >Editar</Link
                                     >
                                 </td>
                             </tr>
@@ -94,8 +95,9 @@
 
 
 <script setup>
+import { Inertia } from "@inertiajs/inertia";
 import Pagination from "../Shared/Pagination";
-defineProps({
+let props = defineProps({
     users: Object,
 });
 </script>
