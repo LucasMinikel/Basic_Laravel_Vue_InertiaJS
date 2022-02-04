@@ -3,11 +3,6 @@
         <h1 class="text-3xl font-bold">Home</h1>
     </Layout>
 </template>
-<script>
+<script setup>
 import Layout from "../Shared/Layout";
-export default {
-    components: {
-        Layout,
-    },
-};
 </script>

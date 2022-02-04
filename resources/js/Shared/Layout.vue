@@ -16,12 +16,14 @@
         </div>
     </section>
 </template>
-<script>
+<script >
 import Nav from "./Nav";
+
 export default {
     components: {
         Nav,
     },
+
     computed: {
         nome() {
             return this.$page.props.auth.user.name;
