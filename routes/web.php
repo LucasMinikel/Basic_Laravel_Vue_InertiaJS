@@ -20,13 +20,20 @@ Route::get('/', function () {
     return Inertia::render('Home');
 });
 
-Route::get('/usuarios', function () {
+Route::get('/usuarios', function (Request $request) {
     return Inertia::render('Usuarios/Index', [
-        'users' => User::paginate(10)
+        'users' => User::query()
+            ->when($request->input('search'), function ($query, $search) {
+                $query->where('name', 'like', "%{$search}%");
+            })
+            ->paginate(10)
+            ->withQueryString()
             ->through(fn ($user) => [
                 'id' => $user->id,
                 'name' => $user->name
-            ])
+            ]),
+
+        'filters' => $request->only(['search'])
     ]);
 });
 
@@ -47,20 +54,6 @@ Route::post('/usuarios', function (Request $request) {
 
     return redirect('/usuarios');
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Route::get('/configuracao', function () {
     return Inertia::render('Configuracao');

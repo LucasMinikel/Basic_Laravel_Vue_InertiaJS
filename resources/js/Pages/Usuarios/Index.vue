@@ -7,6 +7,12 @@
                 >Novo usuario</Link
             >
         </div>
+        <input
+            v-model="search"
+            type="text"
+            placeholder="Pesquisar..."
+            class="border px-2 rounded-lg"
+        />
     </div>
     <div class="flex flex-col">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -100,9 +106,26 @@
 
 
 <script setup>
-import { Inertia } from "@inertiajs/inertia";
 import Pagination from "../../Shared/Pagination";
+import { ref, watch } from "vue";
+import { Inertia } from "@inertiajs/inertia";
+import debounce from "lodash/debounce";
 let props = defineProps({
     users: Object,
+    filters: Object,
 });
+let search = ref(props.filters.search);
+watch(
+    search,
+    debounce(function (value) {
+        Inertia.get(
+            "/usuarios",
+            { search: value },
+            {
+                preserveState: true,
+                replace: true,
+            }
+        );
+    }, 200)
+);
 </script>
