@@ -21,6 +21,9 @@
                         >Configuração</NavLink
                     >
                 </li>
+                <li>
+                    <NavLink href="/logout" method="post">Sair</NavLink>
+                </li>
             </ul>
         </nav>
     </div>
