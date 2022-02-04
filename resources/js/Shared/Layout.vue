@@ -1,7 +1,12 @@
 <template>
     <section class="p-6 bg-gray-200">
         <header class="flex justify-between">
-            <h1 class="font-bold text-lg">APP</h1>
+            <div class="flex items-center">
+                <h1 class="font-bold text-lg">APP</h1>
+                <p class="text-sm ml-4">
+                    {{ nome }}
+                </p>
+            </div>
             <Nav />
         </header>
     </section>
@@ -16,6 +21,11 @@ import Nav from "./Nav";
 export default {
     components: {
         Nav,
+    },
+    computed: {
+        nome() {
+            return this.$page.props.auth.user.name;
+        },
     },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
     <Layout>
-        <h1 class="text-3xl">Usuarios</h1>
+        <h1 class="text-3xl font-bold">Usuarios</h1>
         <div style="margin-top: 400px">
             <p>{{ time }}</p>
 

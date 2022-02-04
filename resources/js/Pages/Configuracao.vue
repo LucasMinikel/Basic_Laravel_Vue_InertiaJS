@@ -1,6 +1,6 @@
 <template>
     <Layout>
-        <h1 class="text-3xl">Configuração</h1>
+        <h1 class="text-3xl font-bold">Configuração</h1>
     </Layout>
 </template>
 <script>
