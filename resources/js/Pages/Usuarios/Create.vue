@@ -78,6 +78,7 @@
                     px-4
                     hover:bg-blue-500
                 "
+                :disabled="processing"
             >
                 Criar
             </button>
@@ -85,8 +86,9 @@
     </form>
 </template>
 <script setup>
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import { Inertia } from "@inertiajs/inertia";
+import { useForm } from "@inertiajs/inertia-vue3";
 
 defineProps({
     errors: Object,
@@ -98,7 +100,16 @@ let form = reactive({
     password: "",
 });
 
+let processing = ref(false);
+
 let submit = () => {
-    Inertia.post("/usuarios", form);
+    Inertia.post("/usuarios", form, {
+        onStart: () => {
+            processing.value = true;
+        },
+        onFinish: () => {
+            processing.value = false;
+        },
+    });
 };
 </script>
