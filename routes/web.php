@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UsuarioController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,46 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return Inertia::render('Home');
     });
-
-    Route::get('/usuarios', function (Request $request) {
-        return Inertia::render('Usuarios/Index', [
-            'users' => User::query()
-                ->when($request->input('search'), function ($query, $search) {
-                    $query->where('name', 'like', "%{$search}%");
-                })
-                ->paginate(10)
-                ->withQueryString()
-                ->through(fn ($user) => [
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'can' => [
-                        'edit' => Auth::user()->can('update', $user)
-                    ]
-                ]),
-
-            'filters' => $request->only(['search']),
-            'can' => [
-                'createUser' => Auth::user()->can('create', User::class)
-            ]
-        ]);
+    Route::prefix('usuarios')->group(function () {
+        Route::get('/', [UsuarioController::class, 'index']);
+        Route::get('/create', [UsuarioController::class, 'create'])->can('create', User::class);
+        Route::post('/', [UsuarioController::class, 'store']);
     });
-
-    Route::get('/usuarios/create', function () {
-        return Inertia::render('Usuarios/Create');
-    })->can('create', 'App\Model\User');
-
-    Route::post('/usuarios', function (Request $request) {
-        $attributes = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        User::create($attributes);
-
-        return redirect('/usuarios');
-    });
-
     Route::get('/configuracao', function () {
         return Inertia::render('Configuracao');
     });
