@@ -10,7 +10,7 @@
                 <li>
                     <NavLink
                         href="/usuarios"
-                        :active="$page.component == 'Usuarios'"
+                        :active="$page.component == 'Usuarios/Index'"
                         >Usuarios</NavLink
                     >
                 </li>
@@ -30,5 +30,5 @@
 </template>
 
 <script setup>
-import NavLink from "../Shared/NavLink";
+import NavLink from "@/Shared/NavLink";
 </script>
